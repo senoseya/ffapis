@@ -143,7 +143,7 @@ export class FreeFireAPI {
     params.append('client_id', GARENA_CLIENT.CLIENT_ID);
 
     try {
-      const response = await axios.post<GarenaTokenResponse>(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH });
+      const response = await axios.post<GarenaTokenResponse>(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH, timeout: 30000 });
       return response.data;
     } catch (error) {
       throw new Error(`Garena Auth Request Failed: ${getErrorMessage(error)}`);
@@ -161,7 +161,8 @@ export class FreeFireAPI {
           Authorization: 'Bearer',
           'Content-Type': 'application/octet-stream'
         },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        timeout: 30000
       });
       const decoded = await protoHandler.decode('MajorLogin.proto', 'response', response.data);
       return decoded as MajorLoginResponse;
@@ -190,7 +191,8 @@ export class FreeFireAPI {
           Authorization: `Bearer ${this.session.token}`,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        timeout: 30000
       });
       const data = await protoHandler.decode('SearchAccountByName.proto', 'SearchAccountByName.response', response.data) as { infos?: SearchResult[] };
       return data.infos || [];
@@ -218,7 +220,8 @@ export class FreeFireAPI {
     try {
       const response = await axios.post(url, encryptedBody, {
         headers: { ...HEADERS.COMMON, Authorization: `Bearer ${this.session.token}` },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        timeout: 30000
       });
       const decoded = await protoHandler.decode('PlayerPersonalShow.proto', 'response', response.data);
       return decoded as PlayerProfile;
@@ -282,7 +285,8 @@ export class FreeFireAPI {
     try {
       const response = await axios.post(url, encryptedBody, {
         headers: { ...HEADERS.COMMON, Authorization: `Bearer ${this.session.token}` },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        timeout: 30000
       });
       const decoded = await protoHandler.decode(protoFile, 'response', response.data);
       return decoded as PlayerStats;
@@ -340,7 +344,8 @@ export class FreeFireAPI {
           ...HEADERS.GARENA_AUTH,
           Authorization: `Signature ${signature}`,
           'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        timeout: 30000
       });
       return response.data.uid;
     } catch (error) {
@@ -358,7 +363,7 @@ export class FreeFireAPI {
     params.append('client_id', GARENA_CLIENT.CLIENT_ID);
 
     try {
-      const response = await axios.post(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH });
+      const response = await axios.post(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH, timeout: 30000 });
       return response.data;
     } catch (error) {
       throw new Error(`Token Grant Failed: ${getErrorMessage(error)}`);
@@ -445,7 +450,8 @@ export class FreeFireAPI {
           'Accept-Encoding': 'gzip'
         },
         responseType: 'arraybuffer',
-        validateStatus: () => true
+        validateStatus: () => true,
+        timeout: 30000
       });
 
       if (response.status === 200) return { success: true };

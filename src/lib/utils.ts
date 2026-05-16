@@ -35,8 +35,6 @@ export function loadItems(): Record<string, Record<string, unknown>> {
   return itemsDb;
 }
 
-loadItems();
-
 export function getItemDetails(itemId: number): ItemDetails {
   const db = loadItems();
   const itemStrId = String(itemId);

@@ -1,5 +1,5 @@
-import { FreeFireAPI } from '@/index';
-import { getErrorMessage } from '@/types';
+import { FreeFireAPI } from '../src/index';
+import { getErrorMessage } from '../src/types';
 
 async function testSearch(): Promise<void> {
   const searchName = process.argv[2] || 'folaa';

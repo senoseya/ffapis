@@ -1,6 +1,6 @@
-import { FreeFireAPI } from '@/index';
-import type { PlayerStats } from '@/types';
-import { getErrorMessage } from '@/types';
+import { FreeFireAPI } from '../src/index';
+import type { PlayerStats } from '../src/types';
+import { getErrorMessage } from '../src/types';
 
 async function testStats(): Promise<void> {
   const targetUid = process.argv[2] || '16207002';

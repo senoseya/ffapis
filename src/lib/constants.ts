@@ -1,7 +1,7 @@
 import fs from 'fs';
-import path from 'path';
 import yaml from 'js-yaml';
 import type { AEConfig, HeadersConfig, URLSConfig, GarenaClientConfig, Settings } from '@/types';
+import { resolveProjectFile } from './resolve-path';
 
 function loadYamlFile(filePath: string): Record<string, string> {
   try {
@@ -25,20 +25,8 @@ function requireConfigValue(config: Record<string, string>, key: string): string
   return readConfigValue(config, key);
 }
 
-function findSettingsPath(): string {
-  const candidates = [
-    path.join(__dirname, '../../config/settings.yaml'),
-    path.join(__dirname, '../config/settings.yaml'),
-    path.join(process.cwd(), 'config/settings.yaml')
-  ];
-  for (const p of candidates) {
-    if (fs.existsSync(p)) return p;
-  }
-  return candidates[0];
-}
-
 function loadSettings(): Settings {
-  const parsed = loadYamlFile(findSettingsPath());
+  const parsed = loadYamlFile(resolveProjectFile('config/settings.yaml'));
 
   return {
     AE: {

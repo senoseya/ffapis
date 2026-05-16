@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { getErrorMessage } from '@/types';
+import { getErrorMessage } from '../src/types';
 
 interface TestDef {
   file: string;

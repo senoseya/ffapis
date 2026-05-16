@@ -37,7 +37,7 @@ export class LikeAPI {
       params.append('client_secret', GARENA_CLIENT.CLIENT_SECRET);
       params.append('client_id', GARENA_CLIENT.CLIENT_ID);
 
-      const tokenResponse = await axios.post<GarenaTokenResponse>(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH });
+      const tokenResponse = await axios.post<GarenaTokenResponse>(URLS.GARENA_TOKEN, params, { headers: HEADERS.GARENA_AUTH, timeout: 30000 });
       if (!tokenResponse.data?.access_token) return null;
 
       const accessToken = tokenResponse.data.access_token;
@@ -52,7 +52,8 @@ export class LikeAPI {
           Authorization: 'Bearer',
           'Content-Type': 'application/octet-stream'
         },
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        timeout: 30000
       });
 
       const loginData = await protoHandler.decode('MajorLogin.proto', 'response', loginResponse.data);

@@ -1,6 +1,6 @@
 {
   "name": "ffapis",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "A powerful TypeScript/Node.js library to interact with Garena Free Fire API using Protobuf.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,10 +17,11 @@
     }
   },
   "files": [
-    "dist",
-    "proto",
-    "config",
-    "data"
+    "dist/index.*",
+    "dist/types/**",
+    "proto/**",
+    "config/**",
+    "data/**"
   ],
   "scripts": {
     "build": "tsc && tsc-alias -p tsconfig.json && tsup src/index.ts --format cjs,esm --dts",

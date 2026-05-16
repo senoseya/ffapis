@@ -1,4 +1,4 @@
-import { freefireTools, FreeFireAIToolHandler } from '../index';
+import { freefireTools, FreeFireAIToolHandler } from '../src/index';
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY_FOR_TEST_TOOL_CALLING;
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -116,7 +116,7 @@ async function chat(messages: ChatMessage[], round = 0): Promise<void> {
     console.log(`  -> ${tc.function.name}(${tc.function.arguments})`);
   }
 
-  const toolCalls = rawToolCalls as import('../lib/ai-handler').AIToolCall[];
+  const toolCalls = rawToolCalls as import('../src/lib/ai-handler').AIToolCall[];
 
   const handler = new FreeFireAIToolHandler();
   const results = await handler.executeMany(toolCalls);
@@ -135,7 +135,7 @@ async function chat(messages: ChatMessage[], round = 0): Promise<void> {
   const assistantMessage: ChatMessage = {
     role: 'assistant',
     content: assistantContent || null,
-    tool_calls: toolCalls.map((tc: import('../lib/ai-handler').AIToolCall) => ({
+    tool_calls: toolCalls.map((tc: import('../src/lib/ai-handler').AIToolCall) => ({
       id: tc.id,
       type: 'function',
       function: {

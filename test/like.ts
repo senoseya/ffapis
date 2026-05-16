@@ -1,5 +1,5 @@
-import { LikeAPI } from '@/index';
-import { getErrorMessage } from '@/types';
+import { LikeAPI } from '../src/index';
+import { getErrorMessage } from '../src/types';
 
 async function main(): Promise<void> {
   const targetUid = process.argv[2];

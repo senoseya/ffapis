@@ -1,5 +1,5 @@
-import { FreeFireAPI } from '@/index';
-import { getErrorMessage } from '@/types';
+import { FreeFireAPI } from '../src/index';
+import { getErrorMessage } from '../src/types';
 
 function generateRandomNickname(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

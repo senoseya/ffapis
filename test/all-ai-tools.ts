@@ -1,5 +1,5 @@
-import { FreeFireAIToolHandler, freefireTools } from '../index';
-import type { AIToolCall } from '../lib/ai-handler';
+import { FreeFireAIToolHandler, freefireTools } from '../src/index';
+import type { AIToolCall } from '../src/lib/ai-handler';
 
 async function runTool(name: string, args: Record<string, unknown>): Promise<void> {
   console.log(`\n=== ${name} ===`);
