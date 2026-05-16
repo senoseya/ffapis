@@ -1,0 +1,97 @@
+# LLM Context for ffapis
+
+## Library Overview
+TypeScript/Node.js library to interact with Free Fire mobile game API using Protobuf + AES encryption. Auto-manages guest credentials from `config/credentials/{region}.yaml`.
+
+## Key Classes
+
+### FreeFireAPI
+```ts
+const api = new FreeFireAPI(region?);
+
+api.searchAccount(keyword: string)           // -> SearchResult[]
+api.getPlayerProfile(uid: string | number)   // -> PlayerProfile
+api.getPlayerItems(uid: string | number)       // -> ProcessedPlayerItems | null
+api.getPlayerStats(uid, mode, matchType)     // -> PlayerStats (mode: 'br'|'cs', matchType: 'career'|'ranked'|'normal')
+api.register(region: string, nickname?)       // -> RegisterResult
+api.login(uid, password)                      // internal use
+```
+
+### LikeAPI
+```ts
+const like = new LikeAPI();
+like.sendLikes(targetUid: string, region: string, likeCount: number) // -> LikeResult
+```
+
+### FreeFireAIToolHandler
+```ts
+const handler = new FreeFireAIToolHandler({ region? });
+handler.execute(toolCall: AIToolCall)         // single tool
+handler.executeMany(toolCalls: AIToolCall[])  // batch
+```
+
+## AI Tool Schemas (freefireTools)
+Export from `src/index.ts`:
+- `search_player` — { keyword: string }
+- `get_player_profile` — { uid: string }
+- `get_player_items` — { uid: string }
+- `get_player_stats` — { uid: string, mode?: 'br'|'cs', matchType?: 'career'|'ranked'|'normal' }
+- `send_likes` — { targetUid: string, region: string, likeCount?: number }
+- `register_account` — { region: string, nickname?: string }
+
+## Project Structure
+```
+src/
+  lib/
+    api.ts              — FreeFireAPI class (auth, search, profile, stats, register)
+    like.ts             — LikeAPI class
+    ai-tools.ts         — JSON Schema tool definitions for LLMs
+    ai-handler.ts       — FreeFireAIToolHandler (executes tool calls)
+    credential-manager.ts — Loads guest accounts from YAML
+    constants.ts        — Reads config/settings.yaml into typed constants
+    resolve-path.ts     — Runtime path resolution (src vs dist)
+    protobuf.ts         — Protobuf encode/decode handler
+    crypto.ts           — AES encryption
+    utils.ts            — Item database loader & processor
+  types/                — All TypeScript interfaces
+  test/                 — Test scripts
+config/
+  settings.yaml         — API keys, headers, URLs, OB version
+  credentials/          — Region-specific guest accounts
+```
+
+## Config Files
+
+### config/settings.yaml
+Core constants. **OB version must be updated when Free Fire updates.**
+```yaml
+AE_MAIN_KEY: "..."
+AE_MAIN_IV: "..."
+HEADERS_COMMON_RELEASE_VERSION: "OB53"  # <-- UPDATE THIS ON OB CHANGE
+URL_GARENA_TOKEN: "https://ffmconnect.live.gop.garenanow.com/oauth/guest/token/grant"
+URL_GUEST_REGISTER: "https://ffmconnect.live.gop.garenanow.com/oauth/guest/register"
+URL_MAJOR_LOGIN: "https://loginbp.ggblueshark.com/MajorLogin"
+URL_MAJOR_REGISTER: "https://loginbp.ggblueshark.com/MajorRegister"
+URL_PATH_SEARCH: "/FuzzySearchAccountByName"
+URL_PATH_PERSONAL_SHOW: "/GetPlayerPersonalShow"
+URL_PATH_PLAYER_STATS: "/GetPlayerStats"
+URL_PATH_PLAYER_CS_STATS: "/GetPlayerTCStats"
+GARENA_CLIENT_ID: "100067"
+GARENA_CLIENT_SECRET: "..."
+```
+
+### config/credentials/{region}.yaml
+```yaml
+- UID: "123456789"
+  PASSWORD: "abc123"
+```
+
+## Path Resolution
+`resolve-path.ts` handles `__dirname` differences between `src/` and `dist/`. Always use it when loading external files.
+
+## Important Notes
+- Auto-login on first API call using random credential from pool.
+- `getPlayerProfile` retries once on 400/401 with fresh session.
+- Regions: `IND`, `SG`, `BR`, `US`, `RU`, `TH`, `VN`, `TW`, `ME`, `CIS`, `BD`.
+- ID/PK do NOT support guest registration.
+- LikeAPI max 100 likes/day per target.

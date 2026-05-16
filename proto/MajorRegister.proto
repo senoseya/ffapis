@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+message request {
+    string nickname = 1;
+    string access_token = 2;
+    string openid = 3;
+    int32 field_5 = 5;
+    int32 platform = 6;
+    int32 field_7 = 7;
+    int32 field_13 = 13;
+    bytes field_14 = 14;
+    string region = 15;
+    int32 field_16 = 16;
+}
+
+message response {
+    int32 code = 1;
+    string message = 2;
+    string uid = 3;
+    string token = 4;
+    string serverUrl = 5;
+}

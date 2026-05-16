@@ -1,0 +1,28 @@
+# Core SDK settings
+AE_MAIN_KEY: "Yg&tc%DEuh6%Zc^8"
+AE_MAIN_IV: "6oyZDr22E3ychjM%"
+
+HEADERS_COMMON_USER_AGENT: "Dalvik/2.1.0 (Linux; U; Android 13; A063 Build/TKQ1.221220.001)"
+HEADERS_COMMON_CONNECTION: "Keep-Alive"
+HEADERS_COMMON_ACCEPT_ENCODING: "gzip"
+HEADERS_COMMON_EXPECT: "100-continue"
+HEADERS_COMMON_X_UNITY_VERSION: "2018.4.11f1"
+HEADERS_COMMON_X_GA: "v1 1"
+HEADERS_COMMON_RELEASE_VERSION: "OB53"
+HEADERS_COMMON_CONTENT_TYPE: "application/x-www-form-urlencoded"
+
+HEADERS_GARENA_AUTH_USER_AGENT: "GarenaMSDK/4.0.19P9(A063 ;Android 13;en;IN;)"
+HEADERS_GARENA_AUTH_CONNECTION: "Keep-Alive"
+HEADERS_GARENA_AUTH_ACCEPT_ENCODING: "gzip"
+
+URL_GARENA_TOKEN: "https://ffmconnect.live.gop.garenanow.com/oauth/guest/token/grant"
+URL_GUEST_REGISTER: "https://ffmconnect.live.gop.garenanow.com/oauth/guest/register"
+URL_MAJOR_LOGIN: "https://loginbp.ggblueshark.com/MajorLogin"
+URL_MAJOR_REGISTER: "https://loginbp.ggblueshark.com/MajorRegister"
+URL_PATH_SEARCH: "/FuzzySearchAccountByName"
+URL_PATH_PERSONAL_SHOW: "/GetPlayerPersonalShow"
+URL_PATH_PLAYER_STATS: "/GetPlayerStats"
+URL_PATH_PLAYER_CS_STATS: "/GetPlayerTCStats"
+
+GARENA_CLIENT_ID: "100067"
+GARENA_CLIENT_SECRET: "2ee44819e9b4598845141067b281621874d0d5d7af9d8f7e00c1e54715b7d1e3"

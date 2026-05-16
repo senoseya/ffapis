@@ -1,0 +1,11 @@
+export { FreeFireAPI } from './lib/api';
+export { LikeAPI } from './lib/like';
+export { CredentialManager } from './lib/credential-manager';
+export { protoHandler } from './lib/protobuf';
+export { encrypt } from './lib/crypto';
+export { getItemDetails, processPlayerItems, loadItems } from './lib/utils';
+export { freefireTools, getToolByName, getToolNames } from './lib/ai-tools';
+export { FreeFireAIToolHandler } from './lib/ai-handler';
+export type { AITool, AIToolParameters, AIToolParameterProperty } from './lib/ai-tools';
+export type { AIToolCall, AIToolCallResult, AIHandlerOptions } from './lib/ai-handler';
+export * from './types';

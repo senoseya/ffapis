@@ -1,0 +1,81 @@
+{
+  "name": "ffapis",
+  "version": "1.5.0",
+  "description": "A powerful TypeScript/Node.js library to interact with Garena Free Fire API using Protobuf.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "proto",
+    "config",
+    "data"
+  ],
+  "scripts": {
+    "build": "tsc && tsc-alias -p tsconfig.json && tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node dist/test/all.js",
+    "test:login": "node dist/test/login.js",
+    "test:register": "node dist/test/register.js",
+    "test:search": "node dist/test/search.js",
+    "test:profile": "node dist/test/profile.js",
+    "test:stats": "node dist/test/stats.js",
+    "test:items": "node dist/test/items.js",
+    "test:like": "node dist/test/like.js",
+    "test:groq-ai": "node dist/test/groq-ai-tool-calling.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "freefire",
+    "checker",
+    "game-api",
+    "player-stats",
+    "ff",
+    "freefire-api",
+    "garena-freefire",
+    "player-info",
+    "stats-checker",
+    "game-data",
+    "sdk",
+    "wrapper",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "senoseya",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senoseya/ffapis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/senoseya/ffapis/issues"
+  },
+  "homepage": "https://github.com/senoseya/ffapis#readme",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "js-yaml": "^4.1.0",
+    "protobufjs": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "tsc-alias": "^1.8.17",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
